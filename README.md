@@ -1,5 +1,7 @@
 # vue-music
 
+基于vue的音乐app
+
 ## Project setup
 ```
 yarn install
