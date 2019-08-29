@@ -1,15 +1,19 @@
 <template>
     <div class="layout">
-        <div class="layout-header">
-            header
-        </div>
-        <div class="children">children</div>
+        <layout-header class="layout-header">header</layout-header>
+        <layout-main class="layout-main">main</layout-main>
+        <layout-footer class="layout-footer">footer</layout-footer>
     </div>
 </template>
 
 <script>
+import LayoutMain from './main/main.vue';
+import LayoutFooter from './footer/footer.vue';
+import LayoutHeader from './header/header.vue';
+
 export default {
-  name: 'layout'
+  name: 'layout',
+  components: {LayoutMain,LayoutFooter,LayoutHeader}
 }
 </script>
 
@@ -18,14 +22,8 @@ $width: 1200px;
 
 .layout {
     width: $width;
-    &:hover {
-        color: #f00;
-    }
-    &-header {
-        font-size: 50px;
-    }
-    .children {
-        color: #0f0;
-    }
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
 }
 </style>

@@ -4,6 +4,7 @@ import ElementUI from 'element-ui'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './style.scss'
 
 Vue.use(ElementUI)
 

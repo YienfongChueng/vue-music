@@ -1,0 +1,16 @@
+/* 改变主题色变量 */
+$--color-primary: #fff;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+html,body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+ul {
+    list-style: none;
+}
