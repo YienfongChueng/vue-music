@@ -8,13 +8,13 @@ export default {
     name: 'layout-main'
 }
 </script>
-<style lang="scss">
+<style lang="scss"> 
     .layout-main {
-        width: 100%;
-        background: #778;
         position: absolute;
         top: 49px;
         bottom: 65px;
+        width: 100%;
+        background: #778;
     }
 
 </style>
