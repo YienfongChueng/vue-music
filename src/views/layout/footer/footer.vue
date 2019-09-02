@@ -12,19 +12,40 @@
             </span>
         </div>
         <div class="layout-footer-processing">
-            <span class="layout-footer-processing-bar">11111</span>
-            <span class="layout-footer-processing-time">2222</span>
+            <span class="layout-footer-processing-bar"></span>
+            <span class="layout-footer-processing-info">
+                <span class="layout-footer-processing-speed">倍速</span>
+                <span class="layout-footer-processing-time">00:00/00:00</span>  
+            </span>
         </div>
-        <ul class="layout-footer-operation-list">
-            <li class="layout-footer-operation-item">1</li>
-            <li class="layout-footer-operation-item">2</li>
-            <li class="layout-footer-operation-item">3</li>
-            <li class="layout-footer-operation-item">4</li>
-            <li class="layout-footer-operation-item">5</li>
-            <li class="layout-footer-operation-item">6</li>
-            <li class="layout-footer-operation-item">7</li>
-            <li class="layout-footer-operation-item">8</li>
-            <li class="layout-footer-operation-item">9</li>
+        <ul class="layout-footer-operation-list clear-fix">
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-star-off"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-download"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-chat-dot-round"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-refresh"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-bell"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-open"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <b class="layout-footer-operation-item-text"> 词 </b>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-s-comment"></i>
+            </li>
+            <li class="layout-footer-operation-item">
+                <i class="el-icon-s-unfold"></i>
+            </li>
         </ul>
     </div>
 </template>
@@ -44,40 +65,54 @@ export default {
         color: #fff;
         
         &-play {
-            // margin: 10px;
-            width: 180px;
             display: inline-block;
             vertical-align: middle;
-            // height: 30px;
             line-height: 65px;
             font-size: 40px;
             padding-left: 15px;
-             box-sizing: border-box;
+            cursor: pointer;
         };
         &-processing {
             display: inline-block;
             vertical-align: middle;
-            background: #e34;
-            &-bar {
+            &-info {
+                position: relative;
+                height: $height;
+            };
+            &-speed {
+                border: 1px solid #fff;
+                border-radius: 8px;
+                font-size: 8px;
+                padding: 2px;
+                position: absolute;
+                bottom: 17px;
+                width: 27px;
+                left: 16px;
+                height: 15px;
 
+            }
+            &-bar {
+                display: inline-block;
+                width: 700px;
+                height: 2px;
+                background: #ffd;
             };
             &-time {
-
+                font-size: 12px;
+                padding: 16px;
             }
         }
         &-operation-list {
-            // display: inline-block;
             vertical-align: middle;
-            width: 393px;
-            background: #555;
             float: right;
-            margin-right: 10px;
+            padding-right: 10px;
+            height: $height;
         }
         &-operation-item {
-            // float: left;
-            display: inline-block;
-            margin-right: 10px;
-            // float: right;
+            float: left;
+            line-height: $height;
+            padding-right: 8px;
+            cursor: pointer;
         }
     }
 
