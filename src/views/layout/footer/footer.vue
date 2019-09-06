@@ -89,6 +89,8 @@ export default {
                 width: 27px;
                 left: 16px;
                 height: 15px;
+                width: 40px;
+                text-align: center;
 
             }
             &-bar {

@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-main">
+    <div class="layout-main clear-fix">
         <div class="layout-main-nav">
             <div class="layout-main-nav-top">
                 <span class="layout-main-nav-top-music">
@@ -20,21 +20,27 @@
             </div>
             <ul class="layout-main-nav-parent-list">
                 <li class="layout-main-nav-parent-item">
-                    <span class="layout-main-nav-parent-text">默认列表</span>
+                    <span class="layout-main-nav-parent-item-text">默认列表</span>
                     <ul class="layout-main-child-list">
-                        <li class="layout-main-clild-item"></li>
+                        <li class="layout-main-nav-clild-item">111</li>
+                        <li class="layout-main-nav-clild-item">222</li>
+                        <li class="layout-main-nav-clild-item">333</li>
                     </ul>
                 </li>
                 <li class="layout-main-nav-parent-item">
                      <span class="layout-main-nav-parent-item-text">最近播放</span>
-                      <ul class="layout-main-child-list">
-                        <li class="layout-main-clild-item"></li>
+                      <ul class="layout-main-nav-child-list">
+                        <li class="layout-main-nav-clild-item">111</li>
+                        <li class="layout-main-nav-clild-item">222</li>
+                        <li class="layout-main-nav-clild-item">333</li>
                     </ul>
                 </li>
                 <li class="layout-main-nav-parent-item">
                     <span class="layout-main-nav-parent-item-text">最近播放视频</span>
                       <ul class="layout-main-child-list">
-                        <li class="layout-main-clild-item"></li>
+                        <li class="layout-main-nav-clild-item">111</li>
+                        <li class="layout-main-nav-clild-item">222</li>
+                        <li class="layout-main-nav-clild-item">333</li>
                     </ul>
                 </li>                        
             </ul>
@@ -52,8 +58,8 @@
                 <span class="layout-main-content-header-single">单曲</span>
                 <span class="layout-main-content-header-listing">歌单</span>
                 <span class="layout-main-content-header-mv">MV</span>
-                <span class="layout-main-contetn-header-record">专辑</span>
-                <span class="layout-main-colntent-header-lric">歌词</span>
+                <span class="layout-main-content-header-record">专辑</span>
+                <span class="layout-main-content-header-lric">歌词</span>
             </div>
             <div class="layout-main-content-table">
                 
@@ -72,14 +78,15 @@ export default {
         top: 49px;
         bottom: 65px;
         width: 100%;
-        // background: #778;
         &-nav {
+            box-sizing: border-box;
             width: 300px;
+            float: left;
+            border-right: 1px solid #f5f5f5;
             &-top {
                 height: 40px;
                 line-height: 40px;
                 border-bottom: 1px solid #f5f5f5;
-                // box-sizing: border-box;
                 &-music,&-cloud,&-radio,&-phone,&-download {
                     padding: 15px;
                     font-size: 20px;
@@ -91,9 +98,58 @@ export default {
                 };
             };
             &-parent-list {
-                // list-style: ;
-                height: 39px;
+                width: 300px;
                 border: 1px 0 sold #f5f5f5;
+            };
+            &-parent-item {
+                padding: 10px;
+                border-bottom: 1px solid #f5f5f5;
+                &-text {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+            }
+            &-clild-item {
+                font-size: 12px;
+                padding-left: 20px;
+            }
+
+        };
+        &-content {
+            float: left;
+            text-align: center;
+            width: 900px;
+            &-top {
+                height: 37px;
+                line-height: 37px;
+                border-bottom: 1px solid #f5f5f5;
+                &-stock,&-radio,&-online,&-listing,&-lric,&-ktv {
+                    margin-left: 50px;
+                    padding: 0 10px;
+                    cursor: pointer;
+                };
+                &-stock:hover,&-radio:hover,&-online:hover,&-listing:hover,&-lric:hover,&-ktv:hover {
+                     border-bottom: #018fe3 2px solid;
+                     color: #018fe3;
+                }
+                &-stock {
+                    border-bottom: #018fe3 2px solid;
+                }
+            };
+            &-header {
+                height: 30px;
+                line-height: 30px;
+                font-size: 16px;
+                border-bottom: #f5f5f5 1px solid;
+                &-single,&-listing,&-mv,&-record,&-lric {
+                    padding: 0 10px;
+                    margin-left: 50px;
+                    cursor: pointer;
+                    font-size: 12px;
+                };
+                &-single:hover,&-listing:hover,&-mv:hover,&-record:hover,&-lric:hover {
+                    color: #018fe3;
+                }
             }
         }
     }
