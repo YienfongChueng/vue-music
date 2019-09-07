@@ -62,7 +62,29 @@
                 <span class="layout-main-content-header-lric">歌词</span>
             </div>
             <div class="layout-main-content-table">
-                
+                <div class="layout-main-content-table-bar">
+                    <span class="layout-main-content-table-bar-search-result">
+                        搜素到 <a href="#" class="layout-main-content-table-bar-search-result-singer">"周杰伦"</a>
+                        的相关歌曲             
+                    </span>
+                    <span class="layout-main-content-table-bar-response">
+                        对结果：
+                        <a class="layout-main-content-table-bar-response-happy" href="#">满意</a>
+                        <a class="layout-main-content-table-bar-response-said" href="#">不满意</a>
+                    </span>
+                    <span class="layout-main-content-table-bar-buttom">
+                        <a href="#" class="layout-main-content-table-bar-buttom-all">
+                            <i class="layout-main-content-table-bar-buttom-all-tan"></i>
+                            播放全部
+                        </a>
+                        <a href="#" class="layout-main-content-table-bar-buttom-add">添加</a>
+                        <a href="#" class="layout-main-content-table-bar-buttom-download">下载</a>
+                    </span>
+
+                </div>
+                <div class="layout-main-content-table-main">
+
+                </div>
             </div>
         </div>
     </div>
@@ -119,6 +141,8 @@ export default {
             float: left;
             text-align: center;
             width: 900px;
+            padding: 0 18px 0 18px;
+            box-sizing: border-box;
             &-top {
                 height: 37px;
                 line-height: 37px;
@@ -140,7 +164,7 @@ export default {
                 height: 30px;
                 line-height: 30px;
                 font-size: 16px;
-                border-bottom: #f5f5f5 1px solid;
+                border-bottom: #f5f5f5 2px solid;
                 &-single,&-listing,&-mv,&-record,&-lric {
                     padding: 0 10px;
                     margin-left: 50px;
@@ -150,8 +174,74 @@ export default {
                 &-single:hover,&-listing:hover,&-mv:hover,&-record:hover,&-lric:hover {
                     color: #018fe3;
                 }
+            };
+            &-table {
+                &-bar {
+                    height: 40px;
+                    line-height: 40px;
+                    &-search-result {
+                        float: left;
+                        padding-left: 10px;
+                        font-size: 12px;
+                        color: #999;
+                        &-singer {
+                            color: #018fe3;
+                            font-size: 14px;
+                            cursor: pointer;
+                        }
+                    };
+                    &-response {
+                        color: #999;
+                        font-size: 12px;
+                        padding-left: 15px;
+                        position: relative;
+                        left: 135px;
+                        &-happy,&-said {
+                            color: #555;
+                            border-bottom: #555 2px solid; 
+                            padding: 0 5px;
+                            font-size: 14px;
+                            margin: 0 8px;
+                            cursor: pointer;
+                        }
+                    };
+                    &-buttom {
+                        float: right;
+                        font-size: 14px;
+                        &-all {
+                              color: #fff;
+                              background: #169af3;
+                              border: 1px solid #169af3;
+                              border-radius: 2px;
+                              padding: 5px;
+                              padding-left: 25px;
+                              position: relative;
+                              margin-right: 5px;
+                              &-tan {
+                                  content: '';
+                                  position: absolute;
+                                  border-width: 10px;
+                                  border-style: solid;
+                                  top: 5px;
+                                  left: 6px;
+                                  border-color: transparent transparent transparent #fff;
+                              }
+                        };
+                        &-add,&-download {
+                            color: #666;
+                            padding: 5px;
+                            margin: 5px;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                        }
+                    }
+                };
+                &-main {
+
+                }
             }
         }
+      
     }
 
 </style>
