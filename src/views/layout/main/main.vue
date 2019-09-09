@@ -83,7 +83,38 @@
 
                 </div>
                 <div class="layout-main-content-table-main">
-
+                    <el-table
+                        ref="multipleTable"
+                        :data="tableData"
+                        tooltip-effect="dark"
+                        style="width: 100%"
+                        @selection-change="handleSelectionChange">
+                        <el-table-column
+                            type="selection"
+                            width="30">
+                        </el-table-column>
+                        <el-table-column
+                            prop="song"
+                            label="歌曲名"
+                            width="400">
+                        </el-table-column>
+                        <el-table-column
+                            prop="record"
+                            label="专辑"
+                            width="100">
+                        </el-table-column>
+                        <el-table-column
+                            prop="times"
+                            label="时长">
+                        </el-table-column>
+                        <el-table-column
+                            prop="pop"
+                            label="热度">
+                        </el-table-column>
+                        <el-table-column
+                            label="操作">
+                        </el-table-column>
+                    </el-table>
                 </div>
             </div>
         </div>
@@ -91,7 +122,63 @@
 </template>
 <script>
 export default {
-    name: 'layout-main'
+    name: 'layout-main',
+    data() {
+      return {
+        tableData: [{
+          song: '周杰伦-告别气球',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '5'
+        }, {
+          song: '周杰伦-彩虹',
+          record: '《我很忙》',
+          times: '04:04',
+          pop: '5'
+        }, {
+          song: '周杰伦-搁浅',
+          record: '《七里香》',
+          times: '04:04',
+          pop: '5'
+        }, {
+          song: '周杰伦-东方破',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '5'
+        }, {
+          song: '周杰伦-告别气球1',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '5'
+        }, {
+          song: '周杰伦-告别气球2',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '5'
+        }, {
+          song: '周杰伦-告别气球3',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '5'
+        }],
+        multipleSelection: []
+      }
+    },
+
+    methods: {
+      toggleSelection(rows) {
+        if (rows) {
+          rows.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+          this.$refs.multipleTable.clearSelection();
+        }
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      }
+    }
 }
 </script>
 <style lang="scss"> 
@@ -140,7 +227,8 @@ export default {
         &-content {
             float: left;
             text-align: center;
-            width: 900px;
+            width:880px;
+            overflow: auto;
             padding: 0 18px 0 18px;
             box-sizing: border-box;
             &-top {
@@ -237,7 +325,7 @@ export default {
                     }
                 };
                 &-main {
-
+                   
                 }
             }
         }
