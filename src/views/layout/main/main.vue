@@ -87,7 +87,8 @@
                         ref="multipleTable"
                         :data="tableData"
                         tooltip-effect="dark"
-                        style="width: 100%"
+                        height="100%"
+                        style="width: 100%;"
                         @selection-change="handleSelectionChange">
                         <el-table-column
                             type="selection"
@@ -96,12 +97,12 @@
                         <el-table-column
                             prop="song"
                             label="歌曲名"
-                            width="400">
+                            width="350">
                         </el-table-column>
                         <el-table-column
                             prop="record"
                             label="专辑"
-                            width="100">
+                            width="150">
                         </el-table-column>
                         <el-table-column
                             prop="times"
@@ -155,7 +156,20 @@ export default {
           record: '《中国好声音》',
           times: '04:04',
           pop: '5'
-        }, {
+        },
+        {
+          song: '周杰伦-告别气球33',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '4'
+        },
+        {
+          song: '周杰伦-告别气球333',
+          record: '《中国好声音》',
+          times: '04:04',
+          pop: '2'
+        },
+         {
           song: '周杰伦-告别气球3',
           record: '《中国好声音》',
           times: '04:04',
@@ -166,15 +180,6 @@ export default {
     },
 
     methods: {
-      toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
-        } else {
-          this.$refs.multipleTable.clearSelection();
-        }
-      },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       }
@@ -191,6 +196,7 @@ export default {
             box-sizing: border-box;
             width: 300px;
             float: left;
+            overflow-y: auto;
             border-right: 1px solid #f5f5f5;
             &-top {
                 height: 40px;
@@ -229,6 +235,7 @@ export default {
             text-align: center;
             width:880px;
             overflow: auto;
+            height: 100%;
             padding: 0 18px 0 18px;
             box-sizing: border-box;
             &-top {
@@ -264,6 +271,9 @@ export default {
                 }
             };
             &-table {
+                //position: absolute;
+                //top: 122px;
+                //bottom: 66px;
                 &-bar {
                     height: 40px;
                     line-height: 40px;
@@ -325,7 +335,9 @@ export default {
                     }
                 };
                 &-main {
-                   
+                   //position: absolute;
+                   //top: 166px;
+                   //bottom: 66px;
                 }
             }
         }
