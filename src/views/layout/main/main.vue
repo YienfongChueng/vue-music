@@ -233,7 +233,7 @@ export default {
         &-content {
             float: left;
             text-align: center;
-            width:880px;
+            width:900px;
             overflow: auto;
             height: 100%;
             padding: 0 18px 0 18px;
