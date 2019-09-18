@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? '/' : './',
     outputDir: 'dist',
@@ -17,13 +18,17 @@ module.exports = {
         https: false,
         proxy: {
             '/api':{
-                target: '',
+                target: ' http://mock.youzhej.cn/mock/5d824be3ed97a2001f36f7a4',
                 ws:false,
                 changeOrigin: true
             }
         }
     },
     configureWebpack: {
-        
+        resolve: {
+            alias: {
+                '@api': path.resolve(__dirname,'./src/api')
+            }
+        }
     },
 }

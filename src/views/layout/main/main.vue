@@ -122,6 +122,9 @@
     </div>
 </template>
 <script>
+// import Api from '@api'; export default {}
+// import { Music } from '@api';
+import * as Api from '@api';
 export default {
     name: 'layout-main',
     data() {
@@ -183,6 +186,11 @@ export default {
       handleSelectionChange(val) {
         this.multipleSelection = val;
       }
+    },
+    mounted () {
+        Api.Music.getMusicList().then(data => {
+            console.log(data);
+        });
     }
 }
 </script>
