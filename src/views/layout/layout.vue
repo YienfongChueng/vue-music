@@ -23,6 +23,7 @@ $width: 1200px;
 .layout {
     width: $width;
     height: 100%;
+    min-height: 500px;
     margin: 0 auto;
     position: relative;
 }

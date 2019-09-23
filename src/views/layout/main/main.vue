@@ -204,7 +204,8 @@ export default {
             box-sizing: border-box;
             width: 300px;
             float: left;
-            overflow-y: auto;
+            height: 100%;
+            position: relative;
             border-right: 1px solid #f5f5f5;
             &-top {
                 height: 40px;
@@ -223,6 +224,11 @@ export default {
             &-parent-list {
                 width: 300px;
                 border: 1px 0 sold #f5f5f5;
+                position: absolute;
+                top: 41px;
+                bottom:0;
+                overflow: hidden;
+                overflow-y: auto;
             };
             &-parent-item {
                 padding: 10px;
@@ -242,10 +248,10 @@ export default {
             float: left;
             text-align: center;
             width:900px;
-            overflow: auto;
             height: 100%;
             padding: 0 18px 0 18px;
             box-sizing: border-box;
+            position: relative;
             &-top {
                 height: 37px;
                 line-height: 37px;
@@ -279,9 +285,13 @@ export default {
                 }
             };
             &-table {
-                //position: absolute;
-                //top: 122px;
-                //bottom: 66px;
+                position: absolute;
+                top: 70px;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+                right: 0;
+                left: 0;
                 &-bar {
                     height: 40px;
                     line-height: 40px;
@@ -343,9 +353,13 @@ export default {
                     }
                 };
                 &-main {
-                   //position: absolute;
-                   //top: 166px;
-                   //bottom: 66px;
+                   position: absolute;
+                   top: 40px;
+                   bottom: 70px;
+                   left: 0;
+                   right: 0;
+                   overflow: hidden;
+                   overflow-y: auto;
                 }
             }
         }
