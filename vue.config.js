@@ -18,7 +18,7 @@ module.exports = {
         https: false,
         proxy: {
             '/api':{
-                target: ' http://mock.youzhej.cn/mock/5d824be3ed97a2001f36f7a4',
+                target: 'http://mock.youzhej.cn/mock/5d8cdbc1ed97a2001f36f7a9',
                 ws:false,
                 changeOrigin: true
             }

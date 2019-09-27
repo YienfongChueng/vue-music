@@ -105,11 +105,14 @@
                             width="150">
                         </el-table-column>
                         <el-table-column
-                            prop="times"
+                            prop="duration"
                             label="时长">
+                             <template slot-scope="scope">
+                                {{ transformTimes(scope.row.duration) }}
+                            </template>
                         </el-table-column>
                         <el-table-column
-                            prop="pop"
+                            prop="hot"
                             label="热度">
                         </el-table-column>
                         <el-table-column
@@ -125,59 +128,15 @@
 // import Api from '@api'; export default {}
 // import { Music } from '@api';
 import * as Api from '@api';
+function az(val){
+    return val < 10 ? '0'+val : val;
+}
 export default {
     name: 'layout-main',
     data() {
       return {
-        tableData: [{
-          song: '周杰伦-告别气球',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '5'
-        }, {
-          song: '周杰伦-彩虹',
-          record: '《我很忙》',
-          times: '04:04',
-          pop: '5'
-        }, {
-          song: '周杰伦-搁浅',
-          record: '《七里香》',
-          times: '04:04',
-          pop: '5'
-        }, {
-          song: '周杰伦-东方破',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '5'
-        }, {
-          song: '周杰伦-告别气球1',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '5'
-        }, {
-          song: '周杰伦-告别气球2',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '5'
-        },
-        {
-          song: '周杰伦-告别气球33',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '4'
-        },
-        {
-          song: '周杰伦-告别气球333',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '2'
-        },
-         {
-          song: '周杰伦-告别气球3',
-          record: '《中国好声音》',
-          times: '04:04',
-          pop: '5'
-        }],
+        total : Number,
+        tableData: [],
         multipleSelection: []
       }
     },
@@ -185,11 +144,23 @@ export default {
     methods: {
       handleSelectionChange(val) {
         this.multipleSelection = val;
+      },
+      transformTimes(params){
+          let mins = az(parseInt(params / 60));
+          let seconds = az(params % 60);
+          return `${mins} : ${seconds}`;
       }
+
     },
     mounted () {
         Api.Music.getMusicList().then(data => {
+            //debug
             console.log(data);
+            if(data.message == "success") {
+                this.tableData = data.data.list;
+            }else {
+                console.log(data.message);
+            }
         });
     }
 }
