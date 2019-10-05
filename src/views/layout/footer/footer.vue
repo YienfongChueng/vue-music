@@ -1,13 +1,22 @@
 <template>
     <div class="layout-footer">
         <div class="layout-footer-play">
-            <span class="layout-footer-play-before">
+            <span class="layout-footer-play-before" @click="palyBefore">
                 <i class="el-icon-arrow-left"></i>
             </span>
-            <span class="layout-footer-play-begin">
-                <i class="el-icon-video-play"></i>
+            <span class="layout-footer-play-begin" @click="playAndPause" >
+                <!-- 此处的ref属性，可以很方便的在vue组件中通过 this.$refs.audio获取该dom元素 -->
+            <audio ref="audio" 
+                   @pause="onPause"
+                   @play="onPlay"
+                   v-bind:src="musicSrc" controls="controls" muted hidden>
+            </audio>
+                <!-- <audio controls hidden id="myAudio" >
+                    <source id="palyer" v-bind:src="musicSrc" type="audio/mpeg">
+                </audio> -->
+                <i v-bind:class="playAndPauseClass"></i>
             </span>
-            <span class="layout-footer-paly-next">
+            <span class="layout-footer-paly-next" @click="palyNext">
                 <i class="el-icon-arrow-right"></i>
             </span>
         </div>
@@ -50,8 +59,82 @@
     </div>
 </template>
 <script>
+
+//  ../../../assets/周深 - 漂洋过海来看你.mp3
+//  ../../../assets/纯音乐 - 天空之城 (钢琴版).mp3
+//  ../../../assets/纯音乐 - 雨的印记 (钢琴).mp3
 export default {
-    name: 'layout-footer'
+    name: 'layout-footer',
+    data() {
+        return {
+            // playAndPauseClass: 'playAndPause el-icon-video-play',
+            musicSrc: '../../../assets/周深 - 漂洋过海来看你.mp3',
+            audio: {
+                playing: false
+            }
+        }
+    },
+    methods: {
+        //控制音频的播放与暂停
+        playAndPause() {
+            return this.audio.playing ? this.pause() : this.play();
+        },
+        //播放音频
+        play() {
+            //debug
+            console.log(this.$refs.audio);
+            // this.$refs.audio.play();
+        },
+        pause() {
+            this.$refs.audio.pause();
+        },
+        //当音频播放
+        onPlay() {
+            this.audio.playing = true;
+        },
+        //当音频暂停
+        onPause() {
+            this.audio.playing = false;
+        },
+        
+        // playAndPause()  {
+        //     let myAudio = document.getElementById("myAudio");
+        //     //debug
+        //     console.log(myAudio);
+        //     if(myAudio && myAudio.paused) {
+        //         myAudio.play() ;//播放
+        //         this.playAndPauseClass = 'playAndPause el-icon-video-pause';
+        //     }else {
+        //         myAudio.pause() ;//暂停
+        //         this.playAndPauseClass = 'playAndPause el-icon-video-play';
+        //     }
+        // },
+        palyBefore() {
+            // let myAudio = document.getElementById("myAudio");
+            // this.musicSrc =  "../../../assets/纯音乐 - 天空之城 (钢琴版).mp3";
+            // myAudio.play();//播放
+            //  //debug
+            // console.log("beforre");
+            // console.log(myAudio);
+               
+        },
+        palyNext() {
+            // let myAudio = document.getElementById("myAudio");
+            // this.musicSrc = "../../../assets/纯音乐 - 雨的印记 (钢琴).mp3";
+            // myAudio.play() ;//播放
+            //  //debug
+            // console.log("next");
+            // console.log(myAudio);
+        }
+    },
+    computed: {
+        //计算属性动态改变按钮的现实
+        playAndPauseClass: function() {
+            //debug
+            console.log(this.audio.playing);
+            return  (this.audio.playing) ? 'playAndPause el-icon-video-pause' : 'playAndPause el-icon-video-play' 
+        }
+    }
 }
 </script>
 <style lang="scss">

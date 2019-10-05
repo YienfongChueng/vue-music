@@ -114,9 +114,23 @@
                         <el-table-column
                             prop="hot"
                             label="热度">
+                            <template slot-scope="scope">
+                                <el-rate
+                                    v-model="scope.row.hot"
+                                    disabled
+                                    show-score
+                                    text-color="#ff9900"
+                                    score-template="{scope.row.hot}">
+                                </el-rate>
+                            </template>
                         </el-table-column>
                         <el-table-column
                             label="操作">
+                            <template slot-scope="scope">
+                                <el-button
+                                size="mini"
+                                @click="handPlay(scope.$index, scope.row)">播放</el-button>
+                            </template>
                         </el-table-column>
                     </el-table>
                 </div>
@@ -125,9 +139,9 @@
     </div>
 </template>
 <script>
-// import Api from '@api'; export default {}
-// import { Music } from '@api';
+
 import * as Api from '@api';
+
 function az(val){
     return val < 10 ? '0'+val : val;
 }
@@ -145,17 +159,20 @@ export default {
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-      transformTimes(params){
+      transformTimes(params) {
           let mins = az(parseInt(params / 60));
           let seconds = az(params % 60);
           return `${mins} : ${seconds}`;
+      },
+      handPlay(index,row) {
+          console.log(index);
+          console.log(row);
       }
 
     },
     mounted () {
         Api.Music.getMusicList().then(data => {
-            //debug
-            console.log(data);
+            
             if(data.message == "success") {
                 this.tableData = data.data.list;
             }else {
