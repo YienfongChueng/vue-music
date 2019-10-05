@@ -9,6 +9,8 @@
             <audio ref="audio" 
                    @pause="onPause"
                    @play="onPlay"
+                   @timeupdate="onTimeupdate"
+                   @loadedmetadata="onLoadedmetadata"
                    v-bind:src="musicSrc" controls="controls" muted hidden>
             </audio>
                 <!-- <audio controls hidden id="myAudio" >
@@ -24,7 +26,7 @@
             <span class="layout-footer-processing-bar"></span>
             <span class="layout-footer-processing-info">
                 <span class="layout-footer-processing-speed">倍速</span>
-                <span class="layout-footer-processing-time">00:00/00:00</span>  
+                <span class="layout-footer-processing-time">{{audio.currentTiem | formatSecond}}/ {{audio.maxTime | formatSecond}}</span>  
             </span>
         </div>
         <ul class="layout-footer-operation-list clear-fix">
@@ -63,6 +65,20 @@
 //  ../../../assets/周深 - 漂洋过海来看你.mp3
 //  ../../../assets/纯音乐 - 天空之城 (钢琴版).mp3
 //  ../../../assets/纯音乐 - 雨的印记 (钢琴).mp3
+function realFormatSecond(second) {
+    let secondType = typeof second;
+    if (secondType === 'number' || secondType === 'string'){
+        second = parseInt(second);
+        let hours = Math.floor(second / 3600 );
+        second = second - hours * 3600;
+        let minute = Math.floor(second / 60);
+        second = second - minute * 60;
+        return hours + ":" + ('0' + minute).slice(-2) + ":" + ('0' + second).slice(-2);
+    }else {
+        return '0:00:00';
+    }
+}
+
 export default {
     name: 'layout-footer',
     data() {
@@ -70,7 +86,9 @@ export default {
             // playAndPauseClass: 'playAndPause el-icon-video-play',
             musicSrc: '../../../assets/周深 - 漂洋过海来看你.mp3',
             audio: {
-                playing: false
+                playing: false,
+                currentTime: 0,//音频当前播放时长
+                maxTime: 0 //音频最大播放时长
             }
         }
     },
@@ -96,7 +114,17 @@ export default {
         onPause() {
             this.audio.playing = false;
         },
-        
+        //当timeupdate事件大概每秒一次，用来更新音频的当前播放时间
+        onTimeupdate(res) {
+            console.log('timeupdate');
+            console.log(res);
+            this.audio.currentTime = res.target.currentTime;
+        },
+        onLoadedmetadata(res) {
+            console.log('onloadedmetadata');
+            console.log(res);
+            this.audio.maxTime = parseInt(res.target.duration);
+        },
         // playAndPause()  {
         //     let myAudio = document.getElementById("myAudio");
         //     //debug
@@ -133,6 +161,12 @@ export default {
             //debug
             console.log(this.audio.playing);
             return  (this.audio.playing) ? 'playAndPause el-icon-video-pause' : 'playAndPause el-icon-video-play' 
+        }
+    },
+    filters: {
+        //将整数转化成时分秒
+        formatSecond(second = 0) {
+            return realFormatSecond(second);
         }
     }
 }
