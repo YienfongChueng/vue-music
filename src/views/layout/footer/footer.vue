@@ -65,9 +65,6 @@
 </template>
 <script>
 
-//  ../../../assets/周深 - 漂洋过海来看你.mp3
-//  ../../../assets/纯音乐 - 天空之城 (钢琴版).mp3
-//  ../../../assets/纯音乐 - 雨的印记 (钢琴).mp3
 function realFormatSecond(second) {
     let secondType = typeof second;
     if (secondType === 'number' || secondType === 'string'){
@@ -86,13 +83,17 @@ export default {
     name: 'layout-footer',
     data() {
         return {
-            // playAndPauseClass: 'playAndPause el-icon-video-play',
             musicSrc: '/music/over-ocean-to-see-you.mp3',
             audio: {
                 playing: false,
                 currentTime: 0,//音频当前播放时长
                 maxTime: 0 //音频最大播放时长
-            }
+            },
+            musicList: [
+                '/music/over-ocean-to-see-you.mp3',
+                '/music/city-in-sky(paino).mp3',
+                '/music/the-symbol-of-rain.mp3'
+            ]
         }
     },
     methods: {
@@ -102,8 +103,6 @@ export default {
         },
         //播放音频
         play() {
-            //debug
-            console.log(this.$refs);
             this.$refs.audio.play();
         },
         pause() {
@@ -119,43 +118,20 @@ export default {
         },
         //当timeupdate事件大概每秒一次，用来更新音频的当前播放时间
         onTimeupdate(res) {
-            console.log('timeupdate');
-            console.log(res);
             this.audio.currentTime = res.target.currentTime;
         },
         onLoadedmetadata(res) {
-            console.log('onloadedmetadata');
-            console.log(res);
             this.audio.maxTime = parseInt(res.target.duration);
         },
-        // playAndPause()  {
-        //     let myAudio = document.getElementById("myAudio");
-        //     //debug
-        //     console.log(myAudio);
-        //     if(myAudio && myAudio.paused) {
-        //         myAudio.play() ;//播放
-        //         this.playAndPauseClass = 'playAndPause el-icon-video-pause';
-        //     }else {
-        //         myAudio.pause() ;//暂停
-        //         this.playAndPauseClass = 'playAndPause el-icon-video-play';
-        //     }
-        // },
         palyBefore() {
-            // let myAudio = document.getElementById("myAudio");
-            // this.musicSrc =  "../../../assets/纯音乐 - 天空之城 (钢琴版).mp3";
-            // myAudio.play();//播放
-            //  //debug
-            // console.log("beforre");
-            // console.log(myAudio);
-               
+            this.musicSrc =  this.musicList.shift();
+            this.musicList.unshift(this.musicSrc);
+            this.$refs.audio.play();//播放
         },
         palyNext() {
-            // let myAudio = document.getElementById("myAudio");
-            // this.musicSrc = "../../../assets/纯音乐 - 雨的印记 (钢琴).mp3";
-            // myAudio.play() ;//播放
-            //  //debug
-            // console.log("next");
-            // console.log(myAudio);
+            this.musicSrc =  this.musicList.pop();
+            this.musicList.unshift(this.musicSrc);
+            this.$refs.audio.play();//播放
         }
     },
     computed: {
