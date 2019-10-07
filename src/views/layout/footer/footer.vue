@@ -11,7 +11,7 @@
                    @play="onPlay"
                    @timeupdate="onTimeupdate"
                    @loadedmetadata="onLoadedmetadata"
-                   :src="musicSrc" controls="controls" muted hidden>
+                   :src="musicSrc" controls="controls" muted autoplay hidden>
             </audio>
                 <!-- <audio controls hidden id="myAudio" >
                     <source id="palyer" v-bind:src="musicSrc" type="audio/mpeg">
@@ -177,6 +177,14 @@ export default {
 </script>
 <style lang="scss">
     $height: 65px;
+    @keyframes dotShine {
+        from {
+            box-shadow: none;
+        }
+        to {
+            box-shadow: 0 0 20px 2px #FFFEA1;
+        }
+    }
     .layout-footer{
         width: 100%;
         position: absolute;
@@ -224,7 +232,7 @@ export default {
                     position: absolute;
                     height: 100%;
                     width: 0;
-                    background: #f15b04;
+                    background: linear-gradient(left, #C5C5FF, #A2DDFF);
                     top: 0;
                     left: 0;
                 }
@@ -232,11 +240,13 @@ export default {
                     position: absolute;
                     top: 0;
                     left: 0;
-                    width: 10px;
-                    height: 10px;
+                    width: 8px;
+                    height: 8px;
                     border-radius: 50%;
                     transform: translate(-50%, -50%);
                     background: #fff;
+                    animation: dotShine 3s linear 0s infinite;
+                    animation-direction: alternate;
                 }
 
             }
