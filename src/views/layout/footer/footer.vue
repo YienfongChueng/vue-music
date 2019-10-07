@@ -11,22 +11,25 @@
                    @play="onPlay"
                    @timeupdate="onTimeupdate"
                    @loadedmetadata="onLoadedmetadata"
-                   v-bind:src="musicSrc" controls="controls" muted hidden>
+                   :src="musicSrc" controls="controls" muted hidden>
             </audio>
                 <!-- <audio controls hidden id="myAudio" >
                     <source id="palyer" v-bind:src="musicSrc" type="audio/mpeg">
                 </audio> -->
-                <i v-bind:class="playAndPauseClass"></i>
+                <i :class="playAndPauseClass"></i>
             </span>
             <span class="layout-footer-paly-next" @click="palyNext">
                 <i class="el-icon-arrow-right"></i>
             </span>
         </div>
         <div class="layout-footer-processing">
-            <span class="layout-footer-processing-bar"></span>
+            <span class="layout-footer-processing-bar">
+                <span class="layout-footer-processing-bar-inner" :style="{ width: playPercent + '%' }"></span>
+                <span class="layout-footer-processing-bar-dot" :style="{ left: playPercent + '%' }"></span>
+            </span>
             <span class="layout-footer-processing-info">
                 <span class="layout-footer-processing-speed">倍速</span>
-                <span class="layout-footer-processing-time">{{audio.currentTiem | formatSecond}}/ {{audio.maxTime | formatSecond}}</span>  
+                <span class="layout-footer-processing-time">{{audio.currentTime | formatSecond}} / {{audio.maxTime | formatSecond}}</span>  
             </span>
         </div>
         <ul class="layout-footer-operation-list clear-fix">
@@ -84,7 +87,7 @@ export default {
     data() {
         return {
             // playAndPauseClass: 'playAndPause el-icon-video-play',
-            musicSrc: '../../../assets/周深 - 漂洋过海来看你.mp3',
+            musicSrc: '/music/over-ocean-to-see-you.mp3',
             audio: {
                 playing: false,
                 currentTime: 0,//音频当前播放时长
@@ -100,8 +103,8 @@ export default {
         //播放音频
         play() {
             //debug
-            console.log(this.$refs.audio);
-            // this.$refs.audio.play();
+            console.log(this.$refs);
+            this.$refs.audio.play();
         },
         pause() {
             this.$refs.audio.pause();
@@ -158,9 +161,10 @@ export default {
     computed: {
         //计算属性动态改变按钮的现实
         playAndPauseClass: function() {
-            //debug
-            console.log(this.audio.playing);
             return  (this.audio.playing) ? 'playAndPause el-icon-video-pause' : 'playAndPause el-icon-video-play' 
+        },
+        playPercent: function() {
+            return (this.audio.currentTime / this.audio.maxTime) * 100;
         }
     },
     filters: {
@@ -211,11 +215,31 @@ export default {
 
             }
             &-bar {
+                position: relative;
                 display: inline-block;
                 width: 700px;
                 height: 2px;
                 background: #ffd;
-            };
+                &-inner {
+                    position: absolute;
+                    height: 100%;
+                    width: 0;
+                    background: #f15b04;
+                    top: 0;
+                    left: 0;
+                }
+                &-dot {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                    background: #fff;
+                }
+
+            }
             &-time {
                 font-size: 12px;
                 padding: 16px;
