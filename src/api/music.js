@@ -13,5 +13,12 @@ export const Music = {
         }).catch(err => {
             console.log(err);
         });
+    },
+    getMusicDetail(id) {
+        return axios.get('/api/getMusicDetail/' + id).then(res => {
+            return res.data;
+        }).catch(err => {
+            console.log(err);
+        })
     }
 };

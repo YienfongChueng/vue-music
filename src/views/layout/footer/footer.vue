@@ -11,7 +11,7 @@
                    @play="onPlay"
                    @timeupdate="onTimeupdate"
                    @loadedmetadata="onLoadedmetadata"
-                   :src="musicSrc" controls="controls" muted autoplay hidden>
+                   :src="musicDetail.music" controls="controls" muted autoplay hidden>
             </audio>
                 <!-- <audio controls hidden id="myAudio" >
                     <source id="palyer" v-bind:src="musicSrc" type="audio/mpeg">
@@ -64,6 +64,8 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+import * as Api from '@api';
 
 function realFormatSecond(second) {
     let secondType = typeof second;
@@ -83,18 +85,11 @@ export default {
     name: 'layout-footer',
     data() {
         return {
-            musicSrc: '',
             audio: {
                 playing: false,
                 currentTime: 0,//音频当前播放时长
                 maxTime: 0 //音频最大播放时长
             },
-            musicList: [
-                '/music/over-ocean-to-see-you.mp3',
-                '/music/city-in-sky(paino).mp3',
-                '/music/the-symbol-of-rain.mp3'
-            ],
-            musicIndex: 0
         }
     },
     methods: {
@@ -104,10 +99,10 @@ export default {
         },
         //播放音频
         play() {
-            this.$refs.audio.play();
+            this.audioRef.play();
         },
         pause() {
-            this.$refs.audio.pause();
+            this.audioRef.pause();
         },
         //当音频播放
         onPlay() {
@@ -125,21 +120,17 @@ export default {
             this.audio.maxTime = parseInt(res.target.duration);
         },
         palyBefore() {
-            this.opMusicIndex('pre');
-            this.musicSrc =  this.musicList[this.musicIndex];
-            this.$refs.audio.play();//播放
+            this.$store.commit('opMusicIndex', 'pre');
+            this.$store.dispatch('getDetailMusic').then(() => {
+                this.audioRef.play();
+            })
         },
         palyNext() {
-            this.opMusicIndex('add');
-            this.musicSrc =  this.musicList[this.musicIndex];
-            this.$refs.audio.play();//播放
+            this.$store.commit('opMusicIndex', 'add');
+            this.$store.dispatch('getDetailMusic').then(() => {
+                this.audioRef.play();
+            })
         },
-        // 操作上一首和下一首
-        opMusicIndex(op='add') {
-            let index = op === 'add' ? ++this.musicIndex : --this.musicIndex;
-            let musicLenght = this.musicList.length;
-            this.musicIndex = (index + musicLenght) % musicLenght;
-        }
     },
     computed: {
         //计算属性动态改变按钮的现实
@@ -148,7 +139,13 @@ export default {
         },
         playPercent: function() {
             return (this.audio.currentTime / this.audio.maxTime) * 100;
-        }
+        },
+        ...mapState([
+            'musicList',
+            'musicDetail',
+            'musicIndex',
+            'audioRef'
+        ])
     },
     filters: {
         //将整数转化成时分秒
@@ -157,7 +154,7 @@ export default {
         }
     },
     mounted() {
-        this.musicSrc = this.musicList[this.musicIndex];
+        this.$store.commit('getAudio',this.$refs.audio);
     }
 }
 </script>

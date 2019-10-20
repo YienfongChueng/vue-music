@@ -85,7 +85,7 @@
                 <div class="layout-main-content-table-main">
                     <el-table
                         ref="multipleTable"
-                        :data="tableData"
+                        :data="musicList"
                         tooltip-effect="dark"
                         height="100%"
                         style="width: 100%;"
@@ -141,6 +141,7 @@
 <script>
 
 import * as Api from '@api';
+import { mapState } from 'vuex';
 
 function az(val){
     return val < 10 ? '0'+val : val;
@@ -149,8 +150,6 @@ export default {
     name: 'layout-main',
     data() {
       return {
-        total : Number,
-        tableData: [],
         multipleSelection: []
       }
     },
@@ -165,16 +164,25 @@ export default {
           return `${mins} : ${seconds}`;
       },
       handPlay(index,row) {
-          console.log(index);
-          console.log(row);
+         this.$store.commit('modifyMusicIndex',index);
+         this.$store.dispatch('getDetailMusic').then(() => {
+             this.audioRef.play();
+         })
       }
-
+    },
+    computed: {
+        ...mapState([
+            'musicList',
+            'total',
+            'audioRef'
+        ])
     },
     mounted () {
         Api.Music.getMusicList().then(data => {
             
             if(data.message == "success") {
-                this.tableData = data.data.list;
+                this.$store.commit('getMusicList',data.data);
+                this.$store.dispatch('getDetailMusic');
             }else {
                 console.log(data.message);
             }
