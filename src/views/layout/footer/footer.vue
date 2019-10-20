@@ -83,7 +83,7 @@ export default {
     name: 'layout-footer',
     data() {
         return {
-            musicSrc: '/music/over-ocean-to-see-you.mp3',
+            musicSrc: '',
             audio: {
                 playing: false,
                 currentTime: 0,//音频当前播放时长
@@ -93,7 +93,8 @@ export default {
                 '/music/over-ocean-to-see-you.mp3',
                 '/music/city-in-sky(paino).mp3',
                 '/music/the-symbol-of-rain.mp3'
-            ]
+            ],
+            musicIndex: 0
         }
     },
     methods: {
@@ -124,14 +125,20 @@ export default {
             this.audio.maxTime = parseInt(res.target.duration);
         },
         palyBefore() {
-            this.musicSrc =  this.musicList.shift();
-            this.musicList.unshift(this.musicSrc);
+            this.opMusicIndex('pre');
+            this.musicSrc =  this.musicList[this.musicIndex];
             this.$refs.audio.play();//播放
         },
         palyNext() {
-            this.musicSrc =  this.musicList.pop();
-            this.musicList.unshift(this.musicSrc);
+            this.opMusicIndex('add');
+            this.musicSrc =  this.musicList[this.musicIndex];
             this.$refs.audio.play();//播放
+        },
+        // 操作上一首和下一首
+        opMusicIndex(op='add') {
+            let index = op === 'add' ? ++this.musicIndex : --this.musicIndex;
+            let musicLenght = this.musicList.length;
+            this.musicIndex = (index + musicLenght) % musicLenght;
         }
     },
     computed: {
@@ -148,6 +155,9 @@ export default {
         formatSecond(second = 0) {
             return realFormatSecond(second);
         }
+    },
+    mounted() {
+        this.musicSrc = this.musicList[this.musicIndex];
     }
 }
 </script>
